@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProductCategory>
+<div class="container" style="margin-top:30px;">
+    <div class="row">
+        <div class="col-md" style="background:">
+            @foreach (var category in Model)
+            {
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4" style="background-color: #5e72e4;">
+                            <div class="card-img" alt="..."></div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@category.Name</h5>
+                                <a asp-controller="Manager" asp-action="UpdateCategory" class="btn btn-primary" asp-route-id="@category.Id">Update category</a>
+                                <form method="post">
+                                    <button asp-controller="Manager" asp-action="DeleteCategory" class="btn btn-danger" asp-route-id="@category.Id">Delete category</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <div class="col-sm  d-flex justify-content-end">
+            <form>
+                <a asp-controller="Manager" asp-action="AddCategory" class="btn btn-primary">Add new product category</a>
+            </form>
+        </div>
+    </div>
+</div>@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

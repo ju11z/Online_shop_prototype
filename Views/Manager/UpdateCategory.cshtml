@@ -1,0 +1,55 @@
+﻿
+@model ProductCategory
+<div class="wrapper">
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="container pt-lg-7">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-header bg-white pb-5">
+                            <h4 style="text-align:center">Update category</h4>
+                        </div>
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <form role="form" asp-action="UpdateCategory" asp-controller="Manager" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="Name" class="col-sm-8">Category name</label>
+                                    <div class="input-group input-group-alternative mb-3">
+
+                                        <input class="form-control" placeholder="Name" type="text" asp-for="Name">
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary mt-4">Update category</button>
+                                </div>
+                                @section Scripts{
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.custom-file-input').on("change", function () {
+                                                var fileName = $(this).val().split("\\").pop();
+                                                $(this).next('.custom-file-label').html(fileName);
+                                            });
+                                        })
+                                    </script>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
+</div>

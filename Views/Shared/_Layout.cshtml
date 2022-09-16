@@ -1,0 +1,204 @@
+﻿@using System.Collections;
+@using Shop_1.Models;
+
+@inject IShopRepository repo;
+@{
+    IEnumerable<ProductCategory> categories = repo.GetAllCategories();
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/assets/img/favicon.png">
+    <title>
+        CoolBerries
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <link href="~/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="~/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+</head>
+<body class="index-page" id="main-font">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-4">
+        <div class="container" >
+            @if (User.Identity.IsAuthenticated)
+            {
+                <h5 style="color:white;">Welcome, @User.Identity.Name</h5>
+
+                @if (User.IsInRole("Manager"))
+                {
+                    <h5 style="color:white;">///Manager</h5>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <h5 style="color:white;">///Admin</h5>
+                }
+            }
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-primary">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="./index.html">
+                                <img src="./assets/img/brand/blue.png">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-primary" aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (!(User.IsInRole("Manager") || User.IsInRole("Admin")))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-action="Products" asp-controller="Catalogue" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
+                                    @foreach (var cat in categories)
+                                    {
+                                        <a class="dropdown-item" asp-action="Products" asp-controller="Catalogue" asp-route-id="@cat.Id">@cat.Name</a>
+                                    }
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="ShoppingCart" class="nav-link">Shopping Cart</a>
+                            </li>
+
+
+                        }
+                        else
+                        {
+                            if (User.IsInRole("Manager"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Manager" asp-action="ProductsFull" class="nav-link">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Manager" asp-action="Stocks" class="nav-link">Stocks</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Manager" asp-action="Categories" class="nav-link">Product categories</a>
+                                </li>
+                            }
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="UsersList" class="nav-link">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="RolesList" class="nav-link">Roles</a>
+                                </li>
+                            }
+
+
+                        }
+
+                        <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" asp-action="Products" asp-controller="Catalogue" id="navbar-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-primary_dropdown_1">
+                                @foreach (var cat in categories)
+                                {
+                                    <a class="dropdown-item" asp-action="Products" asp-controller="Catalogue" asp-route-id="@cat.Id">@cat.Name</a>
+                                }
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-success">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-success">Register</a>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" id="main-font">
+        @RenderBody()
+    </div>
+
+    <script src="~/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="~/assets/js/plugins/bootstrap-switch.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="~/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/plugins/moment.min.js"></script>
+    <script src="~/assets/js/plugins/datetimepicker.js" type="text/javascript"></script>
+    <script src="~/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+    <!-- Control Center for Argon UI Kit: parallax effects, scripts for the example pages etc -->
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script src="~/assets/js/argon-design-system.min.js?v=1.2.2" type="text/javascript"></script>
+    <script>
+        function scrollToDownload() {
+
+            if ($('.section-download').length != 0) {
+                $("html, body").animate({
+                    scrollTop: $('.section-download').offset().top
+                }, 1000);
+            }
+        }
+    </script>
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+        window.TrackJS &&
+            TrackJS.install({
+                token: "ee6fab19c5a04ac1a32a645abde4613a",
+                application: "argon-design-system-pro"
+            });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: true)
+    }
+</body>
+</html>

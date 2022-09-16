@@ -1,0 +1,30 @@
+﻿@model IEnumerable<IdentityRole>
+<div class="container" style="margin-top:30px;">
+    <div class="row">
+        <div class="col-md">
+            @foreach (var role in Model)
+            {
+                
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4" style="background-color: #5e72e4;">
+                                <div  class="card-img" alt="..."></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@role.Name</h5>
+                                    <button asp-controller="Admin" asp-action="DeleteRole" class="btn-danger">Delete role</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            }
+        </div>
+        <div class="col-sm  d-flex justify-content-end">
+            <form method="post">
+                <button type="submit" asp-controller="Admin" asp-action="AddRole" class="btn btn-primary">Add new role</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model LoginViewModel
+
+<div class="wrapper">
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="container pt-lg-7">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <form role="form" method="post" asp-controller="Account" asp-action="Login"
+                                  asp-route-returnUrl="@Model.ReturnUrl">
+                                <div class="form-group">
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        </div>
+                                        <input class="form-control" placeholder="Email" asp-for="Email" type="email">
+                                        <span asp-validation-for="Email"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group focused">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                        </div>
+                                        <input class="form-control" placeholder="Password" type="password" asp-for="Password">
+                                        <span asp-validation-for="Password"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-12">
+                                        <label asp-for="RememberMe">Remember me       </label>
+                                        <input asp-for="RememberMe" />
+                                    </div>
+                                </div>
+                                <span></span>
+                                <span></span>
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <span></span>
+                                <span></span>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary mt-4">Login</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</div>
+
+
+
